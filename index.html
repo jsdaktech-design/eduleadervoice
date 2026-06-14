@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EduLeader Voice — Ghostwriting for India's education leaders</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          // PINE — deep evergreen (primary / dark). Token kept as "navy" so utilities map cleanly.
+          navy: {
+            DEFAULT: '#1e3a32',
+            50:  '#eef3f0',
+            100: '#dce5df',
+            200: '#b9cabf',
+            300: '#8aa99c',
+            400: '#5c8676',
+            500: '#3a6655',
+            600: '#2c5247',
+            700: '#224037',
+            800: '#1e3a32',
+            900: '#13231b',
+          },
+          // IVORY — warm paper (background). Token kept as "cream".
+          cream: {
+            DEFAULT: '#f4f1e8',
+            100: '#ece7d8',
+            200: '#ded6c0',
+            300: '#cabf9f',
+          },
+          // BRASS — muted antique gold (single accent). Token kept as "gold".
+          gold: {
+            DEFAULT: '#9c7b3f',
+            50:  '#f4eedd',
+            100: '#e6d6b0',
+            300: '#c4a062',
+            500: '#9c7b3f',
+            600: '#82662f',
+            700: '#6a5325',
+          },
+        },
+        fontFamily: {
+          serif: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
+          sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        },
+        boxShadow: {
+          'soft': '0 1px 2px rgba(19,35,27,0.05), 0 4px 16px -4px rgba(19,35,27,0.10)',
+          'softer': '0 1px 2px rgba(19,35,27,0.04), 0 2px 8px -2px rgba(19,35,27,0.06)',
+          'lift': '0 2px 4px rgba(19,35,27,0.05), 0 12px 32px -8px rgba(19,35,27,0.16)',
+        },
+        borderRadius: {
+          'lg': '8px',
+          'xl': '12px',
+        },
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  :root {
+    --paper: #e9ece4;
+    --paper-100: #dfe3d6;
+    --paper-200: #c9cfbc;
+    --ink: #1e3a32;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transition: background-color 0.35s ease;
+  }
+  /* Re-route cream tailwind classes to CSS variables so palette swaps propagate */
+  .bg-cream { background-color: var(--paper) !important; }
+  .bg-cream-100 { background-color: var(--paper-100) !important; }
+  .bg-cream-200 { background-color: var(--paper-200) !important; }
+  .font-serif { font-feature-settings: "ss01", "ss02"; letter-spacing: -0.01em; }
+  .hero-grain {
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(19,35,27,0.05) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+  .thin-rule { height: 1px; background: linear-gradient(90deg, transparent, rgba(19,35,27,0.14), transparent); }
+  .gold-rule { height: 1px; background: #9c7b3f; }
+  ::selection { background: #9c7b3f; color: #f4f1e8; }
+
+  /* focus rings */
+  .focus-ring:focus-visible { outline: 2px solid #9c7b3f; outline-offset: 2px; }
+
+  /* Subtle fade-in */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { animation: fadeUp 0.6s ease-out both; }
+
+  /* Interactive draft demo */
+  @keyframes draftIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .draft-line { animation: draftIn .5s ease both; }
+  @keyframes dotPulse { 0%, 80%, 100% { opacity: .2; } 40% { opacity: 1; } }
+  .draft-dot { animation: dotPulse 1s infinite ease-in-out; }
+  @keyframes shimmerMove { 0% { background-position: -300px 0; } 100% { background-position: 300px 0; } }
+  .shimmer-line {
+    background: linear-gradient(90deg, rgba(19,35,27,0.05) 25%, rgba(19,35,27,0.11) 37%, rgba(19,35,27,0.05) 63%);
+    background-size: 600px 100%;
+    animation: shimmerMove 1.3s infinite linear;
+  }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.445.0/dist/umd/lucide.js"></script>
+<script src="image-slot.js"></script>
+</head>
+<body class="antialiased">
+
+<div id="root"></div>
+
+<script type="text/babel" data-presets="typescript,react">
+
+const { useState, useEffect, useRef } = React;
+
+// ============================================================
+// ICON — thin wrapper around lucide
+// ============================================================
+function Icon({ name, className = "w-5 h-5", strokeWidth = 1.5 }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (!ref.current) return;
+    ref.current.innerHTML = "";
+    const el = document.createElement("i");
+    el.setAttribute("data-lucide", name);
+    ref.current.appendChild(el);
+    if (window.lucide) window.lucide.createIcons({ attrs: { "stroke-width": strokeWidth } });
+    const svg = ref.current.querySelector("svg");
+    if (svg) { svg.setAttribute("class", className); svg.removeAttribute("width"); svg.removeAttribute("height"); }
+  }, [name, className, strokeWidth]);
+  return <span ref={ref} className="inline-flex" aria-hidden="true" />;
+}
+
+// ============================================================
+// PRIMITIVES (shadcn-flavored)
+// ============================================================
+function Button({ children, variant = "primary", size = "md", className = "", ...props }) {
+  const base = "inline-flex items-center justify-center gap-2 font-medium transition-all duration-200 focus-ring rounded-lg disabled:opacity-50 disabled:pointer-events-none whitespace-nowrap";
+  const sizes = {
+    sm: "h-9 px-3.5 text-sm",
+    md: "h-11 px-5 text-[15px]",
+    lg: "h-12 px-6 text-[15px]",
+  };
+  const variants = {
+    primary: "bg-navy text-cream hover:bg-navy-900 shadow-softer hover:shadow-soft",
+    gold: "bg-gold text-cream hover:bg-gold-600 shadow-softer hover:shadow-soft",
+    outline: "border border-navy/20 text-navy hover:border-navy hover:bg-navy/[0.03]",
+    ghost: "text-navy hover:bg-navy/[0.05]",
+    subtle: "bg-navy-50 text-navy hover:bg-navy-100",
+  };
+  return (
+    <button className={`${base} ${sizes[size]} ${variants[variant]} ${className}`} {...props}>
+      {children}
+    </button>
+  );
+}
+
+function Card({ children, className = "" }) {
+  return (
+    <div className={`bg-white rounded-xl shadow-softer ${className}`}
+         style={{ boxShadow: "inset 0 0 0 1px rgba(19,35,27,0.08), 0 1px 2px rgba(19,35,27,0.04), 0 2px 8px -2px rgba(19,35,27,0.06)" }}>
+      {children}
+    </div>
+  );
+}
+
+function Badge({ children, className = "" }) {
+  return (
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium tracking-wide ${className}`}>
+      {children}
+    </span>
+  );
+}
+
+function Input({ label, id, error, className = "", ...props }) {
+  return (
+    <div className={className}>
+      {label && (
+        <label htmlFor={id} className="block text-sm font-medium text-navy mb-1.5">
+          {label}
+        </label>
+      )}
+      <input
+        id={id}
+        className={`w-full h-11 px-3.5 bg-white border rounded-lg text-[15px] text-navy placeholder:text-navy-400 transition-colors focus-ring ${
+          error ? "border-red-500/50" : "border-navy/15 focus:border-navy/40"
+        }`}
+        {...props}
+      />
+      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+    </div>
+  );
+}
+
+function Textarea({ label, id, error, className = "", ...props }) {
+  return (
+    <div className={className}>
+      {label && (
+        <label htmlFor={id} className="block text-sm font-medium text-navy mb-1.5">
+          {label}
+        </label>
+      )}
+      <textarea
+        id={id}
+        rows={3}
+        className={`w-full px-3.5 py-2.5 bg-white border rounded-lg text-[15px] text-navy placeholder:text-navy-400 transition-colors focus-ring resize-none ${
+          error ? "border-red-500/50" : "border-navy/15 focus:border-navy/40"
+        }`}
+        {...props}
+      />
+      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+    </div>
+  );
+}
+
+function Dialog({ open, onClose, children }) {
+  useEffect(() => {
+    if (!open) return;
+    const onEsc = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onEsc);
+    document.body.style.overflow = "hidden";
+    return () => { document.removeEventListener("keydown", onEsc); document.body.style.overflow = ""; };
+  }, [open, onClose]);
+
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+      <div className="absolute inset-0 bg-navy-900/55 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative w-full max-w-lg bg-cream rounded-xl shadow-lift border border-navy/10 max-h-[90vh] overflow-y-auto">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// NAV
+// ============================================================
+function Nav({ onOpenDemo }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const links = [
+    { href: "#problem", label: "The problem" },
+    { href: "#how", label: "How it works" },
+    { href: "#pricing", label: "Engagements" },
+    { href: "#faq", label: "FAQ" },
+  ];
+
+  return (
+    <header className={`fixed top-0 inset-x-0 z-40 transition-all duration-300 ${
+      scrolled ? "bg-cream/85 backdrop-blur-md border-b border-navy/10" : "bg-transparent"
+    }`}>
+      <div className="max-w-6xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+        <a href="#" className="flex items-center gap-2.5 group">
+          <span className="w-9 h-9 rounded-md bg-navy text-cream flex items-center justify-center font-serif text-[19px] font-medium">E</span>
+          <span className="font-serif text-[22px] text-navy tracking-tight">
+            EduLeader <span className="text-gold-600">Voice</span>
+          </span>
+        </a>
+        <nav className="hidden md:flex items-center gap-7">
+          {links.map(l => (
+            <a key={l.href} href={l.href} className="text-[14px] text-navy-600 hover:text-navy transition-colors">
+              {l.label}
+            </a>
+          ))}
+        </nav>
+        <div className="hidden md:flex items-center gap-3">
+          <Button variant="primary" size="sm" onClick={onOpenDemo}>
+            Get started
+          </Button>
+        </div>
+        <button className="md:hidden p-2 -mr-2 text-navy" onClick={() => setOpen(!open)} aria-label="Menu">
+          <Icon name={open ? "x" : "menu"} className="w-5 h-5" />
+        </button>
+      </div>
+      {open && (
+        <div className="md:hidden bg-cream border-t border-navy/10">
+          <div className="px-6 py-4 flex flex-col gap-3">
+            {links.map(l => (
+              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-navy-600 hover:text-navy py-1">
+                {l.label}
+              </a>
+            ))}
+            <Button variant="primary" size="md" className="mt-2" onClick={() => { setOpen(false); onOpenDemo(); }}>
+              Get started
+            </Button>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+}
+
+// ============================================================
+// HERO
+// ============================================================
+function Hero({ onOpenDemo }) {
+  return (
+    <section className="relative pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
+      <div className="absolute inset-0 hero-grain opacity-70 pointer-events-none" />
+      <div className="absolute top-24 -left-20 w-96 h-96 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 -right-20 w-96 h-96 rounded-full bg-navy/5 blur-3xl pointer-events-none" />
+
+      <div className="relative max-w-6xl mx-auto px-6 lg:px-10">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <div className="lg:col-span-7">
+            <Badge className="bg-gold/10 text-gold-700 border border-gold/25 mb-8">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-600" />
+              For Vice Chancellors, Registrars, Directors, Founders &amp; education leaders
+            </Badge>
+
+            <h1 className="font-serif text-[40px] sm:text-[54px] lg:text-[62px] leading-[1.04] tracking-tight text-navy font-light">
+              Become the voice your sector{" "}
+              <span className="italic text-gold-700 font-normal">turns to.</span>
+            </h1>
+
+            <p className="mt-7 text-lg md:text-xl text-navy-600 max-w-xl leading-relaxed">
+              You lead. We write. The result is a personal brand on LinkedIn that sounds unmistakably like you — and reaches the very people shaping Indian higher education.
+            </p>
+
+            <div className="mt-9 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+              <Button variant="primary" size="lg" onClick={onOpenDemo}>
+                Request a demonstration
+                <Icon name="arrow-right" className="w-4 h-4" />
+              </Button>
+              <Button variant="outline" size="lg" onClick={() => document.getElementById("how")?.scrollIntoView({ behavior: "smooth" })}>
+                See how it works
+              </Button>
+            </div>
+
+            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-[13px] text-navy-500">
+              <span className="inline-flex items-center gap-2">
+                <Icon name="shield-check" className="w-4 h-4 text-gold-600" strokeWidth={1.75} />
+                Completely confidential — and built entirely around your voice
+              </span>
+            </div>
+          </div>
+
+          {/* Hero image */}
+          <div className="lg:col-span-5 flex lg:justify-end">
+            <div className="relative w-full max-w-[340px] ml-auto">
+              <image-slot
+                id="hero-leader"
+                src="assets/hero-voice.png"
+                shape="rounded"
+                radius="16"
+                placeholder="Drop your own image"
+                style={{ display: "block", width: "100%", height: "420px", boxShadow: "inset 0 0 0 1px rgba(19,35,27,0.08), 0 12px 32px -8px rgba(19,35,27,0.16)" }}
+              ></image-slot>
+              <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 text-cream text-[12px] uppercase tracking-[0.15em] font-medium pointer-events-none" style={{ textShadow: "0 1px 8px rgba(19,35,27,0.55)" }}>
+                <Icon name="feather" className="w-3.5 h-3.5" strokeWidth={1.75} />
+                Written in your voice
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Live demo + supporting metrics */}
+        <div className="mt-20 md:mt-24 grid lg:grid-cols-12 gap-8 items-stretch">
+          <div className="lg:col-span-7 flex">
+            <InteractiveDraft />
+          </div>
+          <div className="lg:col-span-5 flex flex-col gap-5">
+            <StatCard value="3–4" label="polished posts a month — drafted, sourced, ready to publish" />
+            <StatCard value="Under 15 min" label="of your time per post. We carry everything else." />
+            <PortfolioCard />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StatCard({ value, label }) {
+  return (
+    <div className="p-5 rounded-xl bg-white flex flex-col justify-center" style={{ boxShadow: "inset 0 0 0 1px rgba(19,35,27,0.08)" }}>
+      <div className="font-serif text-3xl md:text-[34px] font-light tracking-tight text-navy">
+        {value}
+      </div>
+      <div className="mt-1 text-sm text-navy-600 leading-snug">
+        {label}
+      </div>
+    </div>
+  );
+}
+
+function PortfolioCard() {
+  return (
+    <div className="p-6 rounded-xl bg-navy text-cream flex-1 flex flex-col justify-center">
+      <div className="flex items-center gap-2 text-gold-300 text-[12px] uppercase tracking-[0.15em] font-medium mb-3">
+        <Icon name="library-big" className="w-4 h-4" strokeWidth={1.75} />
+        A new, founder-led practice
+      </div>
+      <p className="text-[15px] text-cream/80 leading-relaxed">
+        One outcome, pursued relentlessly: a personal brand that makes you the leader your peers quote —
+        built one considered post at a time.
+      </p>
+    </div>
+  );
+}
+
+// Raw thoughts that become finished posts — shown two ways: in voice, and the way a generic ghostwriter would flatten them
+const DRAFTS = [
+  {
+    topic: "AI in the classroom",
+    note: "Every student now has a tool that can write their essay in seconds. Banning it is a fantasy and pretending it changes nothing is worse. The real question is what part of learning must stay difficult.",
+    voice: [
+      "This year, a tool arrived in every classroom on our campus that can write a passable essay in seconds. We chose neither to ban it nor to celebrate it.",
+      "We asked a harder question instead: which part of learning is supposed to stay difficult? A student who lets a model build their argument has saved an afternoon — and lost the very thing the afternoon was for.",
+      "So our approach is not about detection software. It rests on disclosure and judgement: students may use AI openly, must show how they used it, and are examined on the reasoning no machine can outsource for them.",
+      "Three principles now guiding how we bring AI into the lecture hall — without surrendering what a university is for —",
+    ],
+    generic: [
+      "🤖 Exciting times ahead — our university is now officially AI-powered! 🚀",
+      "In this era of digital transformation, embracing artificial intelligence is no longer optional, it's essential.",
+      "We're empowering students and faculty to leverage cutting-edge AI tools for a smarter, future-ready campus.",
+      "The future of education is here and we're leading the charge! 💡 #AI #EdTech #Innovation #FutureOfLearning",
+    ],
+    likes: 1280, comments: 96,
+  },
+];
+
+function InteractiveDraft() {
+  const [idx, setIdx] = useState(0);
+  const [phase, setPhase] = useState("idle"); // idle | drafting | done
+  const [view, setView] = useState("voice"); // voice | generic
+  const timers = useRef([]);
+  const d = DRAFTS[idx];
+
+  const clearTimers = () => { timers.current.forEach(clearTimeout); timers.current = []; };
+  useEffect(() => () => clearTimers(), []);
+
+  const startDraft = () => {
+    clearTimers();
+    setView("voice");
+    setPhase("drafting");
+    timers.current.push(setTimeout(() => setPhase("done"), 1150));
+  };
+  const pick = (i) => { clearTimers(); setIdx(i); setView("voice"); setPhase("idle"); };
+  const another = () => { clearTimers(); setIdx((idx + 1) % DRAFTS.length); setView("voice"); setPhase("idle"); };
+
+  return (
+    <Card className="p-0 overflow-hidden bg-white w-full flex flex-col min-h-[472px]">
+      {/* Topic selector */}
+      <div className="px-5 pt-5 pb-4 border-b border-navy/10">
+        <div className="flex items-center gap-2 mb-3 text-[11px] uppercase tracking-[0.15em] text-navy-500 font-medium">
+          <Icon name="sparkles" className="w-3.5 h-3.5 text-gold-600" strokeWidth={1.75} /> Try it — see it in your voice
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {DRAFTS.map((p, i) => (
+            <button key={i} onClick={() => pick(i)}
+              className={`px-3 h-8 rounded-full text-[13px] font-medium transition-colors focus-ring ${
+                i === idx ? "bg-navy text-cream" : "bg-navy/[0.05] text-navy-600 hover:bg-navy/10"
+              }`}>
+              {p.topic}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Body */}
+      <div className="flex-1 flex flex-col">
+        {phase === "idle" && (
+          <div className="p-6 flex-1 flex flex-col">
+            <div className="flex items-center gap-2 text-[12px] uppercase tracking-[0.14em] text-gold-600 font-medium mb-4">
+              <Icon name="pencil-line" className="w-4 h-4" strokeWidth={1.75} /> A passing thought
+            </div>
+            <div className="flex-1 flex items-center">
+              <p className="font-serif text-[22px] md:text-[24px] leading-[1.38] text-navy italic">
+                {d.note}
+              </p>
+            </div>
+            <button onClick={startDraft}
+              className="mt-6 self-start inline-flex items-center gap-2 h-11 px-5 rounded-lg bg-gold text-cream text-[15px] font-medium hover:bg-gold-600 transition-colors focus-ring">
+              Draft in my voice
+              <Icon name="arrow-right" className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
+        {phase === "drafting" && (
+          <div className="p-6 flex-1">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-11 h-11 rounded-full bg-navy text-cream flex items-center justify-center">
+                <Icon name="user-round" className="w-5 h-5" strokeWidth={1.75} />
+              </div>
+              <div>
+                <div className="text-[15px] font-medium text-navy">A Professor &amp; Vice Chancellor</div>
+                <div className="text-xs text-gold-700 inline-flex items-center gap-1.5">
+                  <Icon name="feather" className="w-3.5 h-3.5" /> Drafting in your voice
+                  <span className="draft-dot">·</span><span className="draft-dot" style={{ animationDelay: '.15s' }}>·</span><span className="draft-dot" style={{ animationDelay: '.3s' }}>·</span>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-3.5">
+              <div className="shimmer-line h-3.5 rounded w-[92%]" />
+              <div className="shimmer-line h-3.5 rounded w-[97%]" />
+              <div className="shimmer-line h-3.5 rounded w-[80%]" />
+              <div className="shimmer-line h-3.5 rounded w-[88%]" />
+              <div className="shimmer-line h-3.5 rounded w-[64%]" />
+            </div>
+          </div>
+        )}
+
+        {phase === "done" && (
+          <React.Fragment>
+            <div className="px-6 pt-6 pb-4 flex items-center gap-3">
+              <div className="w-11 h-11 rounded-full bg-navy text-cream flex items-center justify-center">
+                <Icon name="user-round" className="w-5 h-5" strokeWidth={1.75} />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[15px] font-medium text-navy">A Professor &amp; Vice Chancellor</div>
+                <div className="text-xs text-navy-500">Higher education · just now</div>
+              </div>
+              <div className="ml-auto text-navy-300"><Icon name="linkedin" className="w-5 h-5" /></div>
+            </div>
+
+            {/* The same thought, two ways — flip to see what a generic ghostwriter does to it */}
+            <div className="px-6 pb-4">
+              <div className="inline-flex p-0.5 rounded-lg bg-navy/[0.06] text-[12.5px] font-medium">
+                <button onClick={() => setView("voice")}
+                  className={`px-3 h-8 rounded-md transition-colors focus-ring ${view === "voice" ? "bg-white text-navy shadow-softer" : "text-navy-500 hover:text-navy"}`}>
+                  In your voice
+                </button>
+                <button onClick={() => setView("generic")}
+                  className={`px-3 h-8 rounded-md transition-colors focus-ring ${view === "generic" ? "bg-white text-navy shadow-softer" : "text-navy-500 hover:text-navy"}`}>
+                  A generic ghostwriter
+                </button>
+              </div>
+            </div>
+
+            <div key={view} className="px-6 pb-3 space-y-3 text-[15px] leading-relaxed">
+              {d[view].map((para, i) => (
+                <p key={i} className={`draft-line ${view === "voice" ? "text-navy-700" : "text-navy-600"}`} style={{ animationDelay: `${i * 0.16}s` }}>
+                  {view === "voice" && i === d.voice.length - 1
+                    ? <span className="text-navy-500">{para}</span>
+                    : para}
+                </p>
+              ))}
+            </div>
+            <div className="px-6 py-4 mt-auto border-t border-navy/10 flex items-center justify-between">
+              <div className="flex items-center gap-4 text-xs text-navy-500">
+                <span className="inline-flex items-center gap-1.5"><Icon name="thumbs-up" className="w-3.5 h-3.5" /> {d.likes}</span>
+                <span className="inline-flex items-center gap-1.5"><Icon name="message-circle" className="w-3.5 h-3.5" /> {d.comments}</span>
+                {DRAFTS.length > 1 && (
+                  <button onClick={another} className="ml-1 inline-flex items-center gap-1.5 text-gold-700 hover:text-gold-600 font-medium focus-ring rounded">
+                    <Icon name="refresh-cw" className="w-3.5 h-3.5" /> Try another
+                  </button>
+                )}
+              </div>
+              {view === "voice" ? (
+                <Badge className="bg-gold/10 text-gold-700 border border-gold/25">
+                  <Icon name="feather" className="w-3 h-3" /> Your voice
+                </Badge>
+              ) : (
+                <Badge className="bg-navy/[0.06] text-navy-500 border border-navy/15">
+                  <Icon name="users" className="w-3 h-3" /> Could be anyone
+                </Badge>
+              )}
+            </div>
+          </React.Fragment>
+        )}
+      </div>
+    </Card>
+  );
+}
+
+// ============================================================
+// PROBLEM
+// ============================================================
+function Problem() {
+  const items = [
+    {
+      icon: "clock",
+      title: "The hour is never there.",
+      body: "Between the Academic Council, the Board of Governors and accreditation cycles, writing a considered post is the task that slips to Sunday night. So it rarely happens.",
+    },
+    {
+      icon: "user-round",
+      title: "A general ghostwriter flattens you.",
+      body: "Agencies produce posts that could be signed by anyone. Your ideas get pressed into familiar formulas — and the very people you want to reach can tell.",
+    },
+    {
+      icon: "door-closed",
+      title: "Your best thinking stays in the room.",
+      body: "The argument you made in the Senate, the point from your convocation address — it lands with the few who were present, and reaches no further.",
+    },
+  ];
+
+  return (
+    <section id="problem" className="py-24 md:py-32 border-t border-navy/10">
+      <div className="max-w-6xl mx-auto px-6 lg:px-10">
+        <div className="max-w-2xl">
+          <div className="text-[13px] uppercase tracking-[0.18em] text-gold-600 font-medium mb-4">
+            — The problem
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl text-navy font-light leading-[1.1] tracking-tight">
+            Your ideas deserve an audience. <br className="hidden md:block"/>
+            <span className="text-navy-500">The week has other plans.</span>
+          </h2>
+        </div>
+
+        <div className="mt-16 grid md:grid-cols-3 gap-6">
+          {items.map((item, i) => (
+            <Card key={i} className="p-8 hover:shadow-soft transition-shadow">
+              <div className="w-11 h-11 rounded-lg bg-navy/5 flex items-center justify-center mb-6">
+                <Icon name={item.icon} className="w-5 h-5 text-navy" strokeWidth={1.5} />
+              </div>
+              <h3 className="font-serif text-xl text-navy mb-3 leading-snug">
+                {item.title}
+              </h3>
+              <p className="text-[15px] text-navy-600 leading-relaxed">
+                {item.body}
+              </p>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================
+// SOLUTION — the practice, 6 cards
+// ============================================================
+function Solution() {
+  const cards = [
+    {
+      icon: "mic",
+      eyebrow: "01",
+      title: "Voice capture",
+      body: "We begin with a long conversation — how you think, the phrases you return to, the positions you would never take. It becomes the foundation of everything we write.",
+    },
+    {
+      icon: "library",
+      eyebrow: "02",
+      title: "Context library",
+      body: "We read your speeches, papers, convocation addresses and past notes. Your worldview — not a generic leadership template — becomes our reference.",
+    },
+    {
+      icon: "compass",
+      eyebrow: "03",
+      title: "Editorial calendar",
+      body: "A monthly plan mapped to your priorities: research themes, academic milestones, the policy you want to weigh in on. No scrambling for a topic on a Tuesday evening.",
+    },
+    {
+      icon: "pen-tool",
+      eyebrow: "04",
+      title: "Drafting in your voice",
+      body: "A dedicated writer who has studied your archive drafts each post. You receive a few variations to choose from, edit, or send back with a note.",
+    },
+    {
+      icon: "shield-check",
+      eyebrow: "05",
+      title: "Editorial review",
+      body: "Every draft is checked for accuracy on NEP 2020, UGC and AICTE regulation, and sector nuance — then read once more for tone. No clichés. No borrowed buzzwords.",
+    },
+    {
+      icon: "send",
+      eyebrow: "06",
+      title: "Publish & respond",
+      body: "We schedule each post and draft considered replies to comments for your approval. The thinking stays yours; the upkeep becomes ours.",
+    },
+  ];
+
+  return (
+    <section id="solution" className="py-24 md:py-32 bg-navy text-cream relative overflow-hidden">
+      <div className="absolute inset-0 opacity-[0.04]" style={{
+        backgroundImage: "radial-gradient(circle at 1px 1px, #fff 1px, transparent 0)",
+        backgroundSize: "32px 32px"
+      }} />
+      <div className="relative max-w-6xl mx-auto px-6 lg:px-10">
+        <div className="max-w-3xl">
+          <div className="text-[13px] uppercase tracking-[0.18em] text-gold-300 font-medium mb-4">
+            — The practice
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl font-light leading-[1.1] tracking-tight">
+            Six parts.{" "}
+            <span className="italic text-gold-300">One voice — yours.</span>
+          </h2>
+          <p className="mt-6 text-lg text-cream/70 max-w-2xl">
+            Six parts, working quietly in the background — so your voice can carry.
+          </p>
+        </div>
+
+        <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-cream/10 rounded-xl overflow-hidden border border-cream/10">
+          {cards.map((c, i) => (
+            <div key={i} className="bg-navy p-8 hover:bg-navy-700 transition-colors group">
+              <div className="flex items-start justify-between mb-8">
+                <div className="w-11 h-11 rounded-lg bg-cream/5 border border-cream/10 flex items-center justify-center group-hover:bg-gold/15 group-hover:border-gold/30 transition-colors">
+                  <Icon name={c.icon} className="w-5 h-5 text-gold-300" strokeWidth={1.5} />
+                </div>
+                <span className="font-serif text-sm text-cream/40 tracking-widest">{c.eyebrow}</span>
+              </div>
+              <h3 className="font-serif text-xl mb-3 leading-snug">{c.title}</h3>
+              <p className="text-[14.5px] text-cream/65 leading-relaxed">
+                {c.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================
+// HOW IT WORKS
+// ============================================================
+function HowItWorks() {
+  const steps = [
+    {
+      n: "I",
+      title: "The listening",
+      time: "Phase one",
+      body: "One long interview, and a careful read of what you have written and said in public. You receive a Voice Brief — a document describing how you write, what you believe, and what you would never say. You edit it until it reads like you.",
+    },
+    {
+      n: "II",
+      title: "The first drafts",
+      time: "Phase two",
+      body: "We bring an editorial calendar — eight to twelve ideas, organised by theme. You choose; we draft. Each post arrives in a few variations, in your voice, with sources noted. Reviewing takes only a few minutes.",
+    },
+    {
+      n: "III",
+      title: "The rhythm",
+      time: "Phase three",
+      body: "Publishing becomes routine — a steady rhythm of posts, planned around your travel. Replies drafted for your approval, and a regular check-in to recalibrate. Your archive deepens, and your voice on the page grows surer: more like you, not less.",
+    },
+  ];
+
+  return (
+    <section id="how" className="py-24 md:py-32">
+      <div className="max-w-6xl mx-auto px-6 lg:px-10">
+        <div className="max-w-2xl mb-16">
+          <div className="text-[13px] uppercase tracking-[0.18em] text-gold-600 font-medium mb-4">
+            — How it works
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl text-navy font-light leading-[1.1] tracking-tight">
+            Three phases. Built to run without you.
+          </h2>
+        </div>
+
+        <div className="relative">
+          <div className="grid lg:grid-cols-3 gap-10 lg:gap-12">
+            {steps.map((s, i) => (
+              <div key={i} className="relative">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="relative z-10 w-12 h-12 rounded-full bg-cream border-2 border-navy flex items-center justify-center font-serif text-navy text-lg">
+                    {s.n}
+                  </div>
+                  <div>
+                    <div className="text-[12px] uppercase tracking-[0.15em] text-gold-600 font-medium">{s.time}</div>
+                  </div>
+                </div>
+                <h3 className="font-serif text-2xl text-navy mb-3 leading-snug">{s.title}</h3>
+                <p className="text-[15px] text-navy-600 leading-relaxed">
+                  {s.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================
+// PRICING — engagements
+// ============================================================
+function Pricing({ onOpenDemo }) {
+  const tiers = [
+    {
+      name: "Starter",
+      description: "For leaders ready to show up consistently — without overcommitting.",
+      features: [
+        "2 posts per month in your voice",
+        "A monthly editorial calendar",
+        "We create your personal education-leader brand",
+        "Your voice, sharper with every post",
+        "Email support",
+      ],
+      cta: "Connect with us to start",
+      variant: "outline",
+    },
+    {
+      name: "Professional",
+      description: "The one most leaders choose — a real rhythm for an active public voice.",
+      features: [
+        "4 posts per month in your voice",
+        "Editorial calendar with theme maps",
+        "Your personal education-leader brand, built and maintained",
+        "Comment-response drafting",
+        "A monthly strategy call",
+        "LinkedIn profile refinement",
+        "Priority support",
+      ],
+      cta: "Connect with us to start",
+      variant: "primary",
+      featured: true,
+      badge: "Most chosen",
+    },
+    {
+      name: "Signature",
+      description: "A complete communications practice for leaders shaping the national conversation.",
+      features: [
+        "6–8 posts per month in your voice",
+        "Long-form essays & op-eds (one a quarter)",
+        "Media-preparation add-on available",
+        "Sensitive-communications support",
+        "A standing editorial partner for your office",
+      ],
+      cta: "Connect with us to start",
+      variant: "gold",
+    },
+  ];
+
+  return (
+    <section id="pricing" className="py-24 md:py-32 bg-cream-100 border-t border-navy/10">
+      <div className="max-w-6xl mx-auto px-6 lg:px-10">
+        <div className="max-w-2xl mb-16">
+          <div className="text-[13px] uppercase tracking-[0.18em] text-gold-600 font-medium mb-4">
+            — Engagements
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl text-navy font-light leading-[1.1] tracking-tight">
+            Three engagements. <br className="md:hidden"/>
+            <span className="text-navy-500">Chosen by the cadence you keep.</span>
+          </h2>
+          <p className="mt-6 text-[15px] text-navy-600">
+            Monthly. No lock-in. Pause or change whenever you like.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {tiers.map((t, i) => (
+            <div key={i} className={`relative flex flex-col rounded-xl border transition-all ${
+              t.featured
+                ? "bg-navy text-cream border-navy shadow-lift md:-translate-y-3"
+                : "bg-white border-navy/12 hover:border-navy/25 hover:shadow-soft"
+            }`}>
+              {t.badge && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <Badge className="bg-gold text-cream border border-gold shadow-soft">
+                    <Icon name="star" className="w-3 h-3" /> {t.badge}
+                  </Badge>
+                </div>
+              )}
+              <div className="p-8 border-b" style={{ borderColor: t.featured ? "rgba(244,241,232,0.12)" : "rgba(19,35,27,0.08)" }}>
+                <div className={`text-[13px] uppercase tracking-[0.15em] font-medium mb-3 ${t.featured ? "text-gold-300" : "text-gold-600"}`}>
+                  {t.name}
+                </div>
+                <div className="mb-4">
+                  <span className={`font-serif text-[26px] font-light italic tracking-tight ${t.featured ? "text-cream" : "text-navy"}`}>
+                    Connect with us, start
+                  </span>
+                </div>
+                <p className={`text-[14.5px] leading-relaxed ${t.featured ? "text-cream/70" : "text-navy-600"}`}>
+                  {t.description}
+                </p>
+              </div>
+              <div className="p-8 flex-1 flex flex-col">
+                <ul className="space-y-3 flex-1">
+                  {t.features.map((f, j) => (
+                    <li key={j} className="flex items-start gap-3 text-[14.5px]">
+                      <Icon name="check" className={`w-4 h-4 mt-0.5 flex-shrink-0 ${t.featured ? "text-gold-300" : "text-gold-600"}`} strokeWidth={2} />
+                      <span className={t.featured ? "text-cream/85" : "text-navy-700"}>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button
+                  variant={t.featured ? "gold" : t.variant}
+                  size="md"
+                  className="mt-8 w-full"
+                  onClick={onOpenDemo}
+                >
+                  {t.cta}
+                  <Icon name="arrow-right" className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <p className="mt-10 text-center text-sm text-navy-500">
+          Every engagement includes an NDA, full ownership of each draft assigned to you, and a two-month trial window.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================
+// FAQ — the four objections, answered plainly
+// ============================================================
+const FAQS = [
+  {
+    q: "Will it actually sound like me?",
+    a: "Yes — that is the whole point. We never write from a template. Before a single post goes out, we build a Voice Brief from your interviews, speeches and past writing, and you sign off on it. Every draft is then checked against it. If a line does not sound like you, it does not ship.",
+  },
+  {
+    q: "Who owns the posts?",
+    a: "You do, completely. Every word we draft is assigned to you in writing — yours to keep, edit, repurpose or archive. We claim no rights over your thinking, and nothing carries our name.",
+  },
+  {
+    q: "Is it confidential?",
+    a: "Entirely. We work under an NDA from the very first conversation. Your name, your drafts and the fact that we work together are never shared or used as publicity without your explicit permission.",
+  },
+  {
+    q: "Can I leave anytime?",
+    a: "Yes. Engagements are month to month, with no lock-in. Pause or stop at any calendar boundary — and you keep everything that has been written for you.",
+  },
+];
+
+function FAQItem({ item, isOpen, onToggle }) {
+  return (
+    <div className="border-b border-navy/10">
+      <button
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        className="w-full flex items-center justify-between gap-6 py-6 text-left focus-ring rounded group"
+      >
+        <span className="font-serif text-xl md:text-2xl text-navy leading-snug">{item.q}</span>
+        <span className={`flex-shrink-0 w-9 h-9 rounded-full border border-navy/20 flex items-center justify-center text-navy transition-all duration-300 group-hover:border-navy/40 ${isOpen ? "bg-navy text-cream rotate-45" : ""}`}>
+          <Icon name="plus" className="w-4 h-4" strokeWidth={1.75} />
+        </span>
+      </button>
+      <div
+        className="overflow-hidden transition-all duration-300 ease-out"
+        style={{ maxHeight: isOpen ? "320px" : "0px", opacity: isOpen ? 1 : 0 }}
+      >
+        <p className="pb-7 pr-16 text-[15.5px] text-navy-600 leading-relaxed max-w-3xl">
+          {item.a}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function FAQ() {
+  const [open, setOpen] = useState(0);
+  return (
+    <section id="faq" className="py-24 md:py-32 border-t border-navy/10">
+      <div className="max-w-6xl mx-auto px-6 lg:px-10">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
+          <div className="lg:col-span-4">
+            <div className="text-[13px] uppercase tracking-[0.18em] text-gold-600 font-medium mb-4">
+              — Questions
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl text-navy font-light leading-[1.1] tracking-tight">
+              The four things <br className="hidden lg:block"/>
+              <span className="text-navy-500">leaders ask first.</span>
+            </h2>
+            <p className="mt-6 text-[15px] text-navy-600 leading-relaxed max-w-sm">
+              Trusting someone with your public voice is a serious decision. Here are the plain answers,
+              before you ever pick up the phone.
+            </p>
+          </div>
+          <div className="lg:col-span-8 border-t border-navy/10">
+            {FAQS.map((item, i) => (
+              <FAQItem
+                key={i}
+                item={item}
+                isOpen={open === i}
+                onToggle={() => setOpen(open === i ? -1 : i)}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================
+// FINAL CTA
+// ============================================================
+function FinalCTA({ onOpenDemo }) {
+  return (
+    <section className="py-24 md:py-32 bg-navy text-cream relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+      <div className="absolute inset-0 opacity-[0.05]" style={{
+        backgroundImage: "radial-gradient(circle at 1px 1px, #9c7b3f 1px, transparent 0)",
+        backgroundSize: "40px 40px"
+      }} />
+
+      <div className="relative max-w-4xl mx-auto px-6 lg:px-10 text-center">
+        <div className="text-[13px] uppercase tracking-[0.18em] text-gold-300 font-medium mb-6">
+          — Begin
+        </div>
+        <h2 className="font-serif text-4xl md:text-6xl font-light leading-[1.05] tracking-tight">
+          Your next post, <br/>
+          <span className="italic text-gold-300">in your own voice.</span>
+        </h2>
+        <p className="mt-8 text-lg text-cream/70 max-w-2xl mx-auto leading-relaxed">
+          See it before you commit. We'll show you a post in your own voice — and walk you through exactly
+          how the practice fits into a week that is already full.
+        </p>
+        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button variant="gold" size="lg" onClick={onOpenDemo}>
+            Request a demonstration
+            <Icon name="arrow-right" className="w-4 h-4" />
+          </Button>
+          <a href="mailto:connect@eduleadervoice.com" className="text-cream/80 hover:text-cream transition-colors text-[15px] inline-flex items-center gap-2">
+            <Icon name="mail" className="w-4 h-4" />
+            connect@eduleadervoice.com
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================
+// FOOTER
+// ============================================================
+function Footer() {
+  return (
+    <footer className="bg-navy-900 text-cream/60 py-12">
+      <div className="max-w-6xl mx-auto px-6 lg:px-10">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="flex items-center gap-2.5">
+            <span className="w-7 h-7 rounded-md bg-cream/10 text-cream flex items-center justify-center font-serif text-[15px]">E</span>
+            <span className="font-serif text-[17px] text-cream tracking-tight">
+              EduLeader <span className="text-gold-300">Voice</span>
+            </span>
+          </div>
+          <div className="text-sm">
+            © 2026 EduLeader Voice — we create the personal brand of those who lead education.
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ============================================================
+// DEMONSTRATION REQUEST MODAL
+// ============================================================
+function DemoDialog({ open, onClose }) {
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <div className="p-8 sm:p-10 text-center">
+        <button type="button" onClick={onClose}
+          className="absolute top-4 right-4 p-2 text-navy-400 hover:text-navy rounded-lg hover:bg-navy/5">
+          <Icon name="x" className="w-5 h-5" />
+        </button>
+        <div className="w-14 h-14 rounded-full bg-gold/15 text-gold-700 flex items-center justify-center mx-auto mb-6">
+          <Icon name="mail" className="w-7 h-7" strokeWidth={1.75} />
+        </div>
+        <div className="text-[13px] uppercase tracking-[0.18em] text-gold-600 font-medium mb-3">
+          — Get started
+        </div>
+        <h3 className="font-serif text-3xl text-navy font-light leading-tight mb-3">
+          Let's start a conversation.
+        </h3>
+        <p className="text-[15px] text-navy-600 leading-relaxed mb-8 max-w-sm mx-auto">
+          Write to us with a line about yourself and your institution. We'll reply within two working
+          days — and send a sample written for a leader in a context like yours.
+        </p>
+        <div className="flex flex-col items-center gap-4">
+          <a href="mailto:connect@eduleadervoice.com?subject=Connect"
+            className="inline-flex items-center gap-2 h-12 px-7 rounded-lg bg-navy text-cream text-[15px] font-medium hover:bg-navy-800 transition-colors focus-ring">
+            <Icon name="mail" className="w-4 h-4" />
+            connect@eduleadervoice.com
+          </a>
+          <span className="text-xs text-navy-500">
+            Confidential. Never shared. NDA available on request.
+          </span>
+        </div>
+      </div>
+    </Dialog>
+  );
+}
+
+// ============================================================
+// TWEAKS — background palette (curated to the pine / ivory system)
+// ============================================================
+const PALETTES = [
+  { id: "sage",  name: "Pale Sage",   paper: "#e9ece4", paper100: "#dfe3d6", paper200: "#c9cfbc", swatch: "#e9ece4", sub: "Default — soft green" },
+  { id: "ivory", name: "Warm Ivory",  paper: "#f4f1e8", paper100: "#ece7d8", paper200: "#ded6c0", swatch: "#f4f1e8", sub: "Warmer, brighter" },
+  { id: "linen", name: "Bone Linen",  paper: "#efe9df", paper100: "#e7e0d3", paper200: "#d6cdbc", swatch: "#efe9df", sub: "Quiet, bookish" },
+  { id: "stone", name: "Cool Stone",  paper: "#eaece9", paper100: "#e0e3df", paper200: "#ccd2cc", swatch: "#eaece9", sub: "Neutral grey-green" },
+  { id: "pine",  name: "Deep Pine",   paper: "#16271f", paper100: "#1c3128", paper200: "#244036", swatch: "#16271f", sub: "Dark — reverses the page", dark: true },
+];
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "paletteId": "sage"
+}/*EDITMODE-END*/;
+
+function applyPalette(id) {
+  const p = PALETTES.find(x => x.id === id) || PALETTES[0];
+  const root = document.documentElement;
+  root.style.setProperty("--paper", p.paper);
+  root.style.setProperty("--paper-100", p.paper100);
+  root.style.setProperty("--paper-200", p.paper200);
+  if (p.dark) {
+    root.style.setProperty("--ink", "#f4f1e8");
+    document.body.classList.add("palette-dark");
+  } else {
+    root.style.setProperty("--ink", "#1e3a32");
+    document.body.classList.remove("palette-dark");
+  }
+}
+
+function TweaksPanel({ current, onChange, onClose }) {
+  return (
+    <div className="fixed bottom-5 right-5 z-[60] w-[300px] bg-white border border-navy/15 rounded-xl shadow-lift overflow-hidden"
+         style={{ boxShadow: "0 8px 32px rgba(19,35,27,0.18)" }}>
+      <div className="flex items-center justify-between px-4 py-3 border-b border-navy/10 bg-cream-100">
+        <div className="flex items-center gap-2">
+          <Icon name="palette" className="w-4 h-4 text-navy" strokeWidth={1.75} />
+          <span className="font-serif text-[15px] text-navy">Tweaks</span>
+        </div>
+        <button onClick={onClose} className="p-1 text-navy-400 hover:text-navy rounded">
+          <Icon name="x" className="w-4 h-4" />
+        </button>
+      </div>
+      <div className="p-4">
+        <div className="text-[11px] uppercase tracking-[0.15em] text-navy-500 font-medium mb-3">
+          Background palette
+        </div>
+        <div className="grid grid-cols-1 gap-1.5">
+          {PALETTES.map(p => {
+            const active = p.id === current;
+            return (
+              <button
+                key={p.id}
+                onClick={() => onChange(p.id)}
+                className={`flex items-center gap-3 px-2.5 py-2 rounded-lg text-left transition-colors ${
+                  active ? "bg-navy text-cream" : "hover:bg-navy/[0.05] text-navy"
+                }`}
+              >
+                <span className="w-8 h-8 rounded-md border flex-shrink-0"
+                  style={{ background: p.swatch, borderColor: active ? "rgba(244,241,232,0.25)" : "rgba(19,35,27,0.12)" }} />
+                <span className="flex-1 min-w-0">
+                  <span className="block text-[13px] font-medium">{p.name}</span>
+                  <span className={`block text-[11px] ${active ? "text-cream/60" : "text-navy-500"}`}>{p.sub}</span>
+                </span>
+                {active && <Icon name="check" className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={2.25} />}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// APP
+// ============================================================
+function App() {
+  const [demoOpen, setDemoOpen] = useState(false);
+  const [tweaksOn, setTweaksOn] = useState(false);
+  const [paletteId, setPaletteId] = useState(TWEAK_DEFAULTS.paletteId || "sage");
+  const open = () => setDemoOpen(true);
+
+  useEffect(() => { applyPalette(paletteId); }, [paletteId]);
+
+  useEffect(() => {
+    const onMsg = (e) => {
+      if (!e.data || typeof e.data !== "object") return;
+      if (e.data.type === "__activate_edit_mode") setTweaksOn(true);
+      else if (e.data.type === "__deactivate_edit_mode") setTweaksOn(false);
+    };
+    window.addEventListener("message", onMsg);
+    try { window.parent.postMessage({ type: "__edit_mode_available" }, "*"); } catch (err) {}
+    return () => window.removeEventListener("message", onMsg);
+  }, []);
+
+  const changePalette = (id) => {
+    setPaletteId(id);
+    try {
+      window.parent.postMessage({ type: "__edit_mode_set_keys", edits: { paletteId: id } }, "*");
+    } catch (err) {}
+  };
+
+  return (
+    <div className="min-h-screen">
+      <Nav onOpenDemo={open} />
+      <main>
+        <Hero onOpenDemo={open} />
+        <Problem />
+        <HowItWorks />
+        <Pricing onOpenDemo={open} />
+        <FAQ />
+        <FinalCTA onOpenDemo={open} />
+      </main>
+      <Footer />
+      <DemoDialog open={demoOpen} onClose={() => setDemoOpen(false)} />
+      {tweaksOn && (
+        <TweaksPanel
+          current={paletteId}
+          onChange={changePalette}
+          onClose={() => setTweaksOn(false)}
+        />
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+</script>
+</body>
+</html>
