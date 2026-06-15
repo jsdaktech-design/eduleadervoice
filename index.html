@@ -4,122 +4,38 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>EduLeader Voice — Ghostwriting for India's education leaders</title>
+<link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon/favicon-16.png" />
+<link rel="shortcut icon" href="assets/brand/favicon/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/brand/favicon/apple-touch-icon-180.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          // PINE — deep evergreen (primary / dark). Token kept as "navy" so utilities map cleanly.
-          navy: {
-            DEFAULT: '#1e3a32',
-            50:  '#eef3f0',
-            100: '#dce5df',
-            200: '#b9cabf',
-            300: '#8aa99c',
-            400: '#5c8676',
-            500: '#3a6655',
-            600: '#2c5247',
-            700: '#224037',
-            800: '#1e3a32',
-            900: '#13231b',
-          },
-          // IVORY — warm paper (background). Token kept as "cream".
-          cream: {
-            DEFAULT: '#f4f1e8',
-            100: '#ece7d8',
-            200: '#ded6c0',
-            300: '#cabf9f',
-          },
-          // BRASS — muted antique gold (single accent). Token kept as "gold".
-          gold: {
-            DEFAULT: '#9c7b3f',
-            50:  '#f4eedd',
-            100: '#e6d6b0',
-            300: '#c4a062',
-            500: '#9c7b3f',
-            600: '#82662f',
-            700: '#6a5325',
-          },
-        },
-        fontFamily: {
-          serif: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
-          sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        },
-        boxShadow: {
-          'soft': '0 1px 2px rgba(19,35,27,0.05), 0 4px 16px -4px rgba(19,35,27,0.10)',
-          'softer': '0 1px 2px rgba(19,35,27,0.04), 0 2px 8px -2px rgba(19,35,27,0.06)',
-          'lift': '0 2px 4px rgba(19,35,27,0.05), 0 12px 32px -8px rgba(19,35,27,0.16)',
-        },
-        borderRadius: {
-          'lg': '8px',
-          'xl': '12px',
-        },
-      }
-    }
-  }
-</script>
-
+<link rel="preload" href="style.css" as="style">
+<link rel="preload" href="assets/logo-mark.svg" as="image">
+<link rel="preload" href="assets/hero-voice.png" as="image">
+<link rel="stylesheet" href="style.css">
 <style>
-  html { scroll-behavior: smooth; }
-  :root {
-    --paper: #e9ece4;
-    --paper-100: #dfe3d6;
-    --paper-200: #c9cfbc;
-    --ink: #1e3a32;
+  /* HQ image rendering across all images */
+  img { image-rendering: -webkit-optimize-contrast; image-rendering: high-quality; }
+  image-slot { image-rendering: high-quality; }
+  /* Scroll-to-top entrance animation */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-  body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--paper);
-    color: var(--ink);
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    transition: background-color 0.35s ease;
-  }
-  /* Re-route cream tailwind classes to CSS variables so palette swaps propagate */
-  .bg-cream { background-color: var(--paper) !important; }
-  .bg-cream-100 { background-color: var(--paper-100) !important; }
-  .bg-cream-200 { background-color: var(--paper-200) !important; }
-  .font-serif { font-feature-settings: "ss01", "ss02"; letter-spacing: -0.01em; }
-  .hero-grain {
-    background-image:
-      radial-gradient(circle at 1px 1px, rgba(19,35,27,0.05) 1px, transparent 0);
-    background-size: 24px 24px;
-  }
-  .thin-rule { height: 1px; background: linear-gradient(90deg, transparent, rgba(19,35,27,0.14), transparent); }
-  .gold-rule { height: 1px; background: #9c7b3f; }
-  ::selection { background: #9c7b3f; color: #f4f1e8; }
-
-  /* focus rings */
-  .focus-ring:focus-visible { outline: 2px solid #9c7b3f; outline-offset: 2px; }
-
-  /* Subtle fade-in */
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  .reveal { animation: fadeUp 0.6s ease-out both; }
-
-  /* Interactive draft demo */
-  @keyframes draftIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-  .draft-line { animation: draftIn .5s ease both; }
-  @keyframes dotPulse { 0%, 80%, 100% { opacity: .2; } 40% { opacity: 1; } }
-  .draft-dot { animation: dotPulse 1s infinite ease-in-out; }
-  @keyframes shimmerMove { 0% { background-position: -300px 0; } 100% { background-position: 300px 0; } }
-  .shimmer-line {
-    background: linear-gradient(90deg, rgba(19,35,27,0.05) 25%, rgba(19,35,27,0.11) 37%, rgba(19,35,27,0.05) 63%);
-    background-size: 600px 100%;
-    animation: shimmerMove 1.3s infinite linear;
-  }
+  .scroll-top-btn { animation: fadeInUp 0.28s ease both; }
 </style>
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/lucide@0.445.0/dist/umd/lucide.js"></script>
-<script src="image-slot.js"></script>
+
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" defer integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" defer integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" defer integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.445.0/dist/umd/lucide.js" defer></script>
+<script src="image-slot.js" defer></script>
 </head>
 <body class="antialiased">
 
@@ -188,54 +104,19 @@ function Badge({ children, className = "" }) {
   );
 }
 
-function Input({ label, id, error, className = "", ...props }) {
-  return (
-    <div className={className}>
-      {label && (
-        <label htmlFor={id} className="block text-sm font-medium text-navy mb-1.5">
-          {label}
-        </label>
-      )}
-      <input
-        id={id}
-        className={`w-full h-11 px-3.5 bg-white border rounded-lg text-[15px] text-navy placeholder:text-navy-400 transition-colors focus-ring ${
-          error ? "border-red-500/50" : "border-navy/15 focus:border-navy/40"
-        }`}
-        {...props}
-      />
-      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
-    </div>
-  );
-}
 
-function Textarea({ label, id, error, className = "", ...props }) {
-  return (
-    <div className={className}>
-      {label && (
-        <label htmlFor={id} className="block text-sm font-medium text-navy mb-1.5">
-          {label}
-        </label>
-      )}
-      <textarea
-        id={id}
-        rows={3}
-        className={`w-full px-3.5 py-2.5 bg-white border rounded-lg text-[15px] text-navy placeholder:text-navy-400 transition-colors focus-ring resize-none ${
-          error ? "border-red-500/50" : "border-navy/15 focus:border-navy/40"
-        }`}
-        {...props}
-      />
-      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
-    </div>
-  );
-}
 
 function Dialog({ open, onClose, children }) {
   useEffect(() => {
     if (!open) return;
     const onEsc = (e) => { if (e.key === "Escape") onClose(); };
     document.addEventListener("keydown", onEsc);
-    document.body.style.overflow = "hidden";
-    return () => { document.removeEventListener("keydown", onEsc); document.body.style.overflow = ""; };
+    const sr = document.querySelector('[data-scroll-root]');
+    if (sr) sr.style.overflowY = 'hidden'; else document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener("keydown", onEsc);
+      if (sr) sr.style.overflowY = 'auto'; else document.body.style.overflow = '';
+    };
   }, [open, onClose]);
 
   if (!open) return null;
@@ -252,14 +133,16 @@ function Dialog({ open, onClose, children }) {
 // ============================================================
 // NAV
 // ============================================================
-function Nav({ onOpenDemo }) {
+function Nav({ onOpenDemo, scrollEl }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    const el = scrollEl?.current || window;
+    const getY = () => scrollEl?.current ? scrollEl.current.scrollTop : window.scrollY;
+    const onScroll = () => setScrolled(getY() > 8);
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [scrollEl]);
 
   const links = [
     { href: "#problem", label: "The problem" },
@@ -274,7 +157,7 @@ function Nav({ onOpenDemo }) {
     }`}>
       <div className="max-w-6xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2.5 group">
-          <span className="w-9 h-9 rounded-md bg-navy text-cream flex items-center justify-center font-serif text-[19px] font-medium">E</span>
+          <img src="assets/logo-mark.svg" alt="EduLeader Voice" className="w-10 h-10 transition-transform group-hover:scale-105" />
           <span className="font-serif text-[22px] text-navy tracking-tight">
             EduLeader <span className="text-gold-600">Voice</span>
           </span>
@@ -369,10 +252,6 @@ function Hero({ onOpenDemo }) {
                 placeholder="Drop your own image"
                 style={{ display: "block", width: "100%", height: "420px", boxShadow: "inset 0 0 0 1px rgba(19,35,27,0.08), 0 12px 32px -8px rgba(19,35,27,0.16)" }}
               ></image-slot>
-              <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 text-cream text-[12px] uppercase tracking-[0.15em] font-medium pointer-events-none" style={{ textShadow: "0 1px 8px rgba(19,35,27,0.55)" }}>
-                <Icon name="feather" className="w-3.5 h-3.5" strokeWidth={1.75} />
-                Written in your voice
-              </div>
             </div>
           </div>
         </div>
@@ -642,89 +521,6 @@ function Problem() {
   );
 }
 
-// ============================================================
-// SOLUTION — the practice, 6 cards
-// ============================================================
-function Solution() {
-  const cards = [
-    {
-      icon: "mic",
-      eyebrow: "01",
-      title: "Voice capture",
-      body: "We begin with a long conversation — how you think, the phrases you return to, the positions you would never take. It becomes the foundation of everything we write.",
-    },
-    {
-      icon: "library",
-      eyebrow: "02",
-      title: "Context library",
-      body: "We read your speeches, papers, convocation addresses and past notes. Your worldview — not a generic leadership template — becomes our reference.",
-    },
-    {
-      icon: "compass",
-      eyebrow: "03",
-      title: "Editorial calendar",
-      body: "A monthly plan mapped to your priorities: research themes, academic milestones, the policy you want to weigh in on. No scrambling for a topic on a Tuesday evening.",
-    },
-    {
-      icon: "pen-tool",
-      eyebrow: "04",
-      title: "Drafting in your voice",
-      body: "A dedicated writer who has studied your archive drafts each post. You receive a few variations to choose from, edit, or send back with a note.",
-    },
-    {
-      icon: "shield-check",
-      eyebrow: "05",
-      title: "Editorial review",
-      body: "Every draft is checked for accuracy on NEP 2020, UGC and AICTE regulation, and sector nuance — then read once more for tone. No clichés. No borrowed buzzwords.",
-    },
-    {
-      icon: "send",
-      eyebrow: "06",
-      title: "Publish & respond",
-      body: "We schedule each post and draft considered replies to comments for your approval. The thinking stays yours; the upkeep becomes ours.",
-    },
-  ];
-
-  return (
-    <section id="solution" className="py-24 md:py-32 bg-navy text-cream relative overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.04]" style={{
-        backgroundImage: "radial-gradient(circle at 1px 1px, #fff 1px, transparent 0)",
-        backgroundSize: "32px 32px"
-      }} />
-      <div className="relative max-w-6xl mx-auto px-6 lg:px-10">
-        <div className="max-w-3xl">
-          <div className="text-[13px] uppercase tracking-[0.18em] text-gold-300 font-medium mb-4">
-            — The practice
-          </div>
-          <h2 className="font-serif text-4xl md:text-5xl font-light leading-[1.1] tracking-tight">
-            Six parts.{" "}
-            <span className="italic text-gold-300">One voice — yours.</span>
-          </h2>
-          <p className="mt-6 text-lg text-cream/70 max-w-2xl">
-            Six parts, working quietly in the background — so your voice can carry.
-          </p>
-        </div>
-
-        <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-cream/10 rounded-xl overflow-hidden border border-cream/10">
-          {cards.map((c, i) => (
-            <div key={i} className="bg-navy p-8 hover:bg-navy-700 transition-colors group">
-              <div className="flex items-start justify-between mb-8">
-                <div className="w-11 h-11 rounded-lg bg-cream/5 border border-cream/10 flex items-center justify-center group-hover:bg-gold/15 group-hover:border-gold/30 transition-colors">
-                  <Icon name={c.icon} className="w-5 h-5 text-gold-300" strokeWidth={1.5} />
-                </div>
-                <span className="font-serif text-sm text-cream/40 tracking-widest">{c.eyebrow}</span>
-              </div>
-              <h3 className="font-serif text-xl mb-3 leading-snug">{c.title}</h3>
-              <p className="text-[14.5px] text-cream/65 leading-relaxed">
-                {c.body}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 // ============================================================
 // HOW IT WORKS
@@ -1042,7 +838,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto px-6 lg:px-10">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-center gap-2.5">
-            <span className="w-7 h-7 rounded-md bg-cream/10 text-cream flex items-center justify-center font-serif text-[15px]">E</span>
+            <img src="assets/logo-mark.svg" alt="" className="w-8 h-8" />
             <span className="font-serif text-[17px] text-cream tracking-tight">
               EduLeader <span className="text-gold-300">Voice</span>
             </span>
@@ -1170,6 +966,73 @@ function TweaksPanel({ current, onChange, onClose }) {
 }
 
 // ============================================================
+// SCROLL TO TOP
+// ============================================================
+function ScrollToTop({ scrollEl }) {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = scrollEl?.current || window;
+    const getY = () => scrollEl?.current ? scrollEl.current.scrollTop : window.scrollY;
+    const onScroll = () => setVisible(getY() > 300);
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [scrollEl]);
+  if (!visible) return null;
+  const handleClick = () => {
+    if (scrollEl?.current) scrollEl.current.scrollTo({ top: 0, behavior: "smooth" });
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  return (
+    <button
+      className="scroll-top-btn"
+      onClick={handleClick}
+      aria-label="Back to top"
+      title="Back to top"
+      style={{
+        position: "fixed", bottom: "28px", right: "24px", zIndex: 55,
+        width: "56px", height: "56px", border: "none", cursor: "pointer",
+        background: "transparent", padding: 0, borderRadius: "50%",
+        boxShadow: "0 4px 20px rgba(19,35,27,0.32), 0 1px 6px rgba(19,35,27,0.14)",
+        transition: "transform 0.2s ease, box-shadow 0.2s ease",
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.transform = "translateY(-3px) scale(1.05)";
+        e.currentTarget.style.boxShadow = "0 10px 30px rgba(19,35,27,0.38)";
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.transform = "translateY(0) scale(1)";
+        e.currentTarget.style.boxShadow = "0 4px 20px rgba(19,35,27,0.32), 0 1px 6px rgba(19,35,27,0.14)";
+      }}
+    >
+      <svg width="56" height="56" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" style={{display:"block"}}>
+        {/* Logo background circles */}
+        <circle cx="48" cy="48" r="47" fill="#1e3a32" />
+        <circle cx="48" cy="48" r="40.2" fill="none" stroke="#c4a062" strokeWidth="1" opacity="0.7" />
+        <circle cx="48" cy="48" r="37.6" fill="none" stroke="#c4a062" strokeWidth="0.9" opacity="0.42" />
+        {/* E lettermark */}
+        <g fill="#f4f1e8">
+          <rect x="35" y="32" width="6.8" height="34" rx="0.6" />
+          <rect x="31.6" y="32" width="13.2" height="2.6" />
+          <rect x="31.6" y="63.4" width="13.2" height="2.6" />
+          <rect x="31.6" y="32" width="2.4" height="6.6" />
+          <rect x="31.6" y="59.4" width="2.4" height="6.6" />
+          <rect x="35" y="32" width="19" height="2.6" />
+          <rect x="51.6" y="30.4" width="2.4" height="6.4" />
+          <rect x="35" y="47.7" width="13.5" height="2.5" />
+          <rect x="46.2" y="46.3" width="2.2" height="5.6" />
+          <rect x="35" y="63.4" width="21" height="2.6" />
+          <rect x="53.6" y="61.6" width="2.4" height="6.4" />
+        </g>
+        {/* Gold comma mark */}
+        <path transform="translate(62 31) scale(2)" d="M3,-0.4 A3,3 0 1,0 -1.8,2.4 L-2.9,7.6 C0.5,5.2 2.6,2.5 3,-0.4 Z" fill="#c4a062" />
+        {/* Up chevron — in the empty arc above the E letter */}
+        <polyline points="38,27 48,15 58,27" stroke="#c4a062" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      </svg>
+    </button>
+  );
+}
+
+// ============================================================
 // APP
 // ============================================================
 function App() {
@@ -1198,19 +1061,29 @@ function App() {
     } catch (err) {}
   };
 
+  const scrollRef = useRef(null);
+
   return (
-    <div className="min-h-screen">
-      <Nav onOpenDemo={open} />
-      <main>
-        <Hero onOpenDemo={open} />
-        <Problem />
-        <HowItWorks />
-        <Pricing onOpenDemo={open} />
-        <FAQ />
-        <FinalCTA onOpenDemo={open} />
-      </main>
-      <Footer />
+    <React.Fragment>
+      <div
+        data-scroll-root=""
+        ref={scrollRef}
+        className="min-h-screen"
+        style={{ height: "100vh", overflowY: "auto", overflowX: "hidden" }}
+      >
+        <Nav onOpenDemo={open} scrollEl={scrollRef} />
+        <main>
+          <Hero onOpenDemo={open} />
+          <Problem />
+          <HowItWorks />
+          <Pricing onOpenDemo={open} />
+          <FAQ />
+          <FinalCTA onOpenDemo={open} />
+        </main>
+        <Footer />
+      </div>
       <DemoDialog open={demoOpen} onClose={() => setDemoOpen(false)} />
+      <ScrollToTop scrollEl={scrollRef} />
       {tweaksOn && (
         <TweaksPanel
           current={paletteId}
@@ -1218,7 +1091,7 @@ function App() {
           onClose={() => setTweaksOn(false)}
         />
       )}
-    </div>
+    </React.Fragment>
   );
 }
 

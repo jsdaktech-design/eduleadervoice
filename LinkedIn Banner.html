@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>LinkedIn Banner — EduLeader Voice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,300;9..144,0,400;9..144,1,300;9..144,1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    background: #d6d8d0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    font-family: Inter, sans-serif;
+    padding: 48px 24px;
+  }
+  .meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .meta-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #555;
+  }
+  .meta-dim {
+    font-size: 12px;
+    color: #888;
+  }
+  canvas {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.08),
+      0 8px 24px rgba(0,0,0,0.16),
+      0 24px 56px rgba(0,0,0,0.14);
+  }
+  .actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    padding: 0 28px;
+    background: #1e3a32;
+    color: #f4f1e8;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: Inter, sans-serif;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.15s;
+    font-weight: 500;
+  }
+  .btn-primary:hover { background: #2c5244; transform: translateY(-1px); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    padding: 0 22px;
+    background: transparent;
+    color: #444;
+    border: 1.5px solid #bbb;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: Inter, sans-serif;
+    cursor: pointer;
+    transition: border-color 0.18s, color 0.18s;
+    font-weight: 500;
+  }
+  .btn-secondary:hover { border-color: #1e3a32; color: #1e3a32; }
+  .hint {
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+  #status {
+    font-size: 13px;
+    color: #c4a062;
+    min-height: 20px;
+    text-align: center;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  <div class="meta-title">LinkedIn Personal Banner</div>
+  <div class="meta-dim">1584 × 396 px · High Resolution PNG</div>
+</div>
+
+<canvas id="banner" width="1584" height="396" style="width: min(1584px, 100%);"></canvas>
+
+<div id="status">Rendering banner…</div>
+
+<div class="actions">
+  <button class="btn-primary" onclick="downloadBanner()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download HQ PNG
+  </button>
+  <button class="btn-secondary" onclick="redraw()">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+    Re-render
+  </button>
+</div>
+<div class="hint">Right-click the banner and choose "Save image as…" to save directly, or use the download button above.</div>
+
+<script>
+// ─── SVG LOGO ───────────────────────────────────────────────
+const LOGO_SVG = `<svg width="280" height="280" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="48" cy="48" r="47" fill="#1e3a32"/>
+  <circle cx="48" cy="48" r="40.2" fill="none" stroke="#c4a062" stroke-width="1.1" opacity="0.85"/>
+  <circle cx="48" cy="48" r="37.6" fill="none" stroke="#c4a062" stroke-width="0.9" opacity="0.5"/>
+  <g fill="#f4f1e8">
+    <rect x="35" y="32" width="6.8" height="34" rx="0.6"/>
+    <rect x="31.6" y="32" width="13.2" height="2.6"/>
+    <rect x="31.6" y="63.4" width="13.2" height="2.6"/>
+    <rect x="31.6" y="32" width="2.4" height="6.6"/>
+    <rect x="31.6" y="59.4" width="2.4" height="6.6"/>
+    <rect x="35" y="32" width="19" height="2.6"/>
+    <rect x="51.6" y="30.4" width="2.4" height="6.4"/>
+    <rect x="35" y="47.7" width="13.5" height="2.5"/>
+    <rect x="46.2" y="46.3" width="2.2" height="5.6"/>
+    <rect x="35" y="63.4" width="21" height="2.6"/>
+    <rect x="53.6" y="61.6" width="2.4" height="6.4"/>
+  </g>
+  <path transform="translate(62 31) scale(2)" d="M3,-0.4 A3,3 0 1,0 -1.8,2.4 L-2.9,7.6 C0.5,5.2 2.6,2.5 3,-0.4 Z" fill="#c4a062"/>
+</svg>`;
+
+function loadSVGAsImage(svgStr) {
+  return new Promise((resolve, reject) => {
+    const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+    const url  = URL.createObjectURL(blob);
+    const img  = new Image();
+    img.onload  = () => { URL.revokeObjectURL(url); resolve(img); };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(); };
+    img.src = url;
+  });
+}
+
+async function drawBanner() {
+  const canvas = document.getElementById('banner');
+  const ctx    = canvas.getContext('2d');
+  const W = 1584, H = 396;
+  ctx.clearRect(0, 0, W, H);
+
+  // ── 1. Background ──────────────────────────────────────────
+  ctx.fillStyle = '#1e3a32';
+  ctx.fillRect(0, 0, W, H);
+
+  // ── 2. Subtle vignette edges ───────────────────────────────
+  const vgL = ctx.createLinearGradient(0, 0, 120, 0);
+  vgL.addColorStop(0,   'rgba(0,0,0,0.28)');
+  vgL.addColorStop(1,   'rgba(0,0,0,0)');
+  ctx.fillStyle = vgL; ctx.fillRect(0, 0, 120, H);
+
+  const vgR = ctx.createLinearGradient(W, 0, W - 120, 0);
+  vgR.addColorStop(0,   'rgba(0,0,0,0.22)');
+  vgR.addColorStop(1,   'rgba(0,0,0,0)');
+  ctx.fillStyle = vgR; ctx.fillRect(W - 120, 0, 120, H);
+
+  // ── 3. Dot-grid texture ────────────────────────────────────
+  ctx.fillStyle = 'rgba(196,160,98,0.07)';
+  for (let x = 18; x < W; x += 34) {
+    for (let y = 18; y < H; y += 34) {
+      ctx.beginPath();
+      ctx.arc(x, y, 1.1, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // ── 4. Gold border lines ───────────────────────────────────
+  ctx.strokeStyle = 'rgba(196,160,98,0.55)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(0, 5);     ctx.lineTo(W, 5);     ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0, H - 5); ctx.lineTo(W, H - 5); ctx.stroke();
+
+  // ── 5. Left zone — decorative arcs frame the profile photo area ─
+  // LinkedIn profile photo sits bottom-left; we leave that zone clear
+  // and add concentric gold arcs so it looks intentional.
+  ctx.strokeStyle = 'rgba(196,160,98,0.20)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(0, H, 280, -Math.PI / 2, 0); ctx.stroke();
+  ctx.strokeStyle = 'rgba(196,160,98,0.10)';
+  ctx.beginPath(); ctx.arc(0, H, 320, -Math.PI / 2, 0); ctx.stroke();
+  ctx.strokeStyle = 'rgba(196,160,98,0.05)';
+  ctx.beginPath(); ctx.arc(0, H, 360, -Math.PI / 2, 0); ctx.stroke();
+
+  // Soft radial glow at bottom-left
+  const glow = ctx.createRadialGradient(180, H, 10, 180, H, 310);
+  glow.addColorStop(0,   'rgba(196,160,98,0.08)');
+  glow.addColorStop(1,   'rgba(196,160,98,0)');
+  ctx.fillStyle = glow; ctx.fillRect(0, 0, 400, H);
+
+  // ── 6. Vertical separator ──────────────────────────────────
+  const SEP_X = 370;
+  const grad  = ctx.createLinearGradient(SEP_X, 48, SEP_X, H - 48);
+  grad.addColorStop(0,   'rgba(196,160,98,0)');
+  grad.addColorStop(0.2, 'rgba(196,160,98,0.45)');
+  grad.addColorStop(0.8, 'rgba(196,160,98,0.45)');
+  grad.addColorStop(1,   'rgba(196,160,98,0)');
+  ctx.beginPath();
+  ctx.moveTo(SEP_X, 44); ctx.lineTo(SEP_X, H - 44);
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  // ── 7. Text block ──────────────────────────────────────────
+  const TX = SEP_X + 52;
+
+  // Super-label
+  ctx.fillStyle = 'rgba(196,160,98,0.78)';
+  ctx.font = '600 19px Inter, sans-serif';
+  ctx.letterSpacing = '0.14em';
+  ctx.fillText('GHOSTWRITING FOR INDIA\'S EDUCATION LEADERS', TX, 122);
+  ctx.letterSpacing = '0px';
+
+  // "EduLeader" — large cream serif
+  ctx.fillStyle = '#f4f1e8';
+  ctx.font = '300 108px Fraunces, Georgia, serif';
+  ctx.fillText('EduLeader', TX, 243);
+  const eduW = ctx.measureText('EduLeader').width;
+
+  // "Voice" — italic gold
+  ctx.fillStyle = '#c4a062';
+  ctx.font = 'italic 300 108px Fraunces, Georgia, serif';
+  ctx.fillText(' Voice', TX + eduW, 243);
+
+  // Tagline
+  ctx.fillStyle = 'rgba(244,241,232,0.58)';
+  ctx.font = '400 25px Inter, sans-serif';
+  ctx.fillText('Your thinking. Your voice. Your audience.', TX, 294);
+
+  // Dot separator + URL
+  ctx.fillStyle = 'rgba(196,160,98,0.55)';
+  ctx.font = '400 19px Inter, sans-serif';
+  ctx.fillText('eduleadervoice.com', TX, 342);
+
+  // ── 8. Large decorative background quote ───────────────────
+  ctx.save();
+  ctx.globalAlpha = 0.038;
+  ctx.fillStyle = '#f4f1e8';
+  ctx.font = 'italic 300 520px Fraunces, Georgia, serif';
+  ctx.fillText('\u201C', W - 290, H + 24);
+  ctx.restore();
+
+  document.getElementById('status').textContent = 'Banner ready — 1584 × 396 px · PNG';
+}
+
+async function redraw() {
+  document.getElementById('status').textContent = 'Re-rendering…';
+  await document.fonts.ready;
+  await drawBanner();
+}
+
+function downloadBanner() {
+  const canvas = document.getElementById('banner');
+  const link   = document.createElement('a');
+  link.download = 'EduLeader-Voice-LinkedIn-Banner.png';
+  link.href     = canvas.toDataURL('image/png');
+  link.click();
+}
+
+// ── Init: wait for fonts then draw ────────────────────────────
+(async () => {
+  try {
+    await document.fonts.ready;
+    // Small grace period so Google Fonts finish painting
+    await new Promise(r => setTimeout(r, 320));
+    await drawBanner();
+  } catch (err) {
+    document.getElementById('status').textContent = 'Error rendering — click Re-render to retry.';
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>
